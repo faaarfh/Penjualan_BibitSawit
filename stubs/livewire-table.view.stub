@@ -1,0 +1,120 @@
+<div>
+    <h1>[model] Table</h1>
+
+
+<!-- Modal Add Form -->
+<div class="modal fade" id="modal-add" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah [model]</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                    [form]
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" wire:click="save" class="btn btn-primary">
+                    Simpan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail Form -->
+<div class="modal fade" id="modal-detail" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail [model]</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                  <fieldset disabled>
+                    [form]
+  </fieldset>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail Form -->
+<div class="modal fade" id="modal-edit" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perbarui [model]</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                    [form]
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" wire:click="update" class="btn btn-warning">
+                    Perbarui
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-detail" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail [model]</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form wire:submit.prevent="save">
+                  <fieldset disabled>
+                    [form]
+  </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-sm btn-primary" wire:click="add">Tambah [model]</button>
+                </div>
+                <div class="col-6">
+
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                    <input type="text" wire:model.live="search" class="form-control" placeholder="Cari [model]...">
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+            [table]
+        </div>
+
+        <div class="card-footer">
+
+    {{ $this->[varName]List->links()}}
+        </div>
+
+
+    </div>
+</div>

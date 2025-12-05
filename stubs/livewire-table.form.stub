@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Livewire\Forms;
+
+use App\Models\[class];
+use Illuminate\Validation\Rule;
+use Livewire\Form;
+
+class [class]Form extends Form
+{
+    public ?[class] $[varName] = null;
+
+    [fields]
+
+    protected function rules(): array
+    {
+        return [
+[rules]
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+[messages]
+        ];
+    }
+
+    public function store()
+    {
+        $[varName] = [class]::query()->create($this->validate());
+        $this->reset();
+    }
+
+    public function update()
+    {
+        $this->[varName]->update($this->validate());
+
+        $this->reset();
+    }
+
+    public function delete()
+    {
+        $this->[varName]->delete();
+        $this->reset();
+    }
+
+    public function fill($id) {
+
+        $this->[varName] = [class]::query()->find($id);
+        [assignments]
+
+    }
+}
