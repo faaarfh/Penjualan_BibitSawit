@@ -15,9 +15,9 @@ enum Role: string
     public function getColor(): ?string
     {
         return match ($this) {
-            self::ADMIN   => 'danger',
+            self::ADMIN => 'danger',
             self::PEMBELI => 'primary',
-            default       => 'secondary'
+            default => 'secondary'
         };
     }
 

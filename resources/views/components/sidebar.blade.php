@@ -9,7 +9,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="">SISAWIT</a>
+                    <a href="">UD. Putri Hijau</a>
                 </div>
                 <!-- theme toggle, biarin aja -->
             </div>
@@ -33,23 +33,48 @@
 
         <li class="sidebar-title">Navigasi Utama</li>
 
-        <x-nav-link icon="bi-speedometer2"
+        <x-nav-link icon="bi-house-door"
             href="{{ route('dashboard')}}"
             :active="request()->routeIs('dashboard')">
             Beranda
         </x-nav-link>
 
         @if ($role === Role::ADMIN)
-            <x-nav-link icon="bi-calendar-week"
+            <x-nav-link icon="bi-people"
                 href="{{ route('table.users')}}"
                 :active="request()->routeIs('table.users')">
                     Pengguna
             </x-nav-link>
-
-            <x-nav-link icon="bi-calendar-week"
+            <x-nav-link icon="bi-flower1"
                 href="{{ route('table.bibit')}}"
                 :active="request()->routeIs('table.bibit')">
                     Bibit
+            </x-nav-link>
+
+            <x-nav-link icon="bi-cart-check"
+                href="{{ route('table.pesanan')}}"
+                :active="request()->routeIs('table.pesanan')">
+                    Pesanan
+            </x-nav-link>
+
+        <li class="sidebar-title">Laporan</li>
+            <x-nav-link icon="bi-file-earmark-bar-graph"
+                href="{{ route('laporan')}}"
+                :active="request()->routeIs('laporan')">
+                    Laporan
+            </x-nav-link>
+        @endif
+
+        @if ($role === Role::PEMBELI)
+            <x-nav-link icon="bi-book"
+                href="{{ route('katalog-bibit')}}"
+                :active="request()->routeIs('katalog-bibit')">
+                    Katalog
+            </x-nav-link>
+            <x-nav-link icon="bi-cart"
+                href="{{ route('table.pesanan')}}"
+                :active="request()->routeIs('table.pesanan')">
+                    Pesanan
             </x-nav-link>
         @endif
 

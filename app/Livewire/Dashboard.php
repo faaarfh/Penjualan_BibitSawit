@@ -2,10 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Enums\Role;
-use App\Models\KasPembayaran;
-use App\Models\Pemasukan;
-use App\Models\Pengeluaran;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -21,6 +17,19 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.dashboard');
+        $tahunIni = now()->year;
+        $bulanIni = now()->month;
+
+        $penjualanBulanan = \App\Models\Pesanan::whereMonth('tanggal_pesan', $bulanIni)
+            ->whereYear('tanggal_pesan', $tahunIni)
+            ->get();
+
+        $totalTransaksiBulanan = $penjualanBulanan->count();
+        $totalPendapatanBulanan = $penjualanBulanan->sum('total_harga');
+        return view('livewire.dashboard', [ 
+
+            'totalTransaksiBulanan' => $totalTransaksiBulanan,
+            'totalPendapatanBulanan' => $totalPendapatanBulanan,
+        ]);
     }
 }

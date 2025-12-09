@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Bibit;
-use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class BibitForm extends Form
@@ -11,8 +10,11 @@ class BibitForm extends Form
     public ?Bibit $bibit = null;
 
     public string $nama_bibit = '';
+
     public string $deskripsi = '';
+
     public string $stok = '';
+
     public int $harga = 0;
 
     protected function rules(): array
@@ -54,10 +56,11 @@ class BibitForm extends Form
         $this->reset();
     }
 
-    public function fill($id) {
+    public function fill($id)
+    {
 
         $this->bibit = Bibit::query()->find($id);
-                $this->nama_bibit = $this->bibit->nama_bibit;
+        $this->nama_bibit = $this->bibit->nama_bibit;
         $this->deskripsi = $this->bibit->deskripsi;
         $this->stok = $this->bibit->stok;
         $this->harga = $this->bibit->harga;

@@ -199,7 +199,7 @@
 
             <div class="row">
                 <div class="col-6">
-                    <button class="btn btn-sm btn-primary" wire:click="add">Tambah Bibit</button>
+                    <button class="btn   btn-primary" wire:click="add">Tambah Bibit</button>
                 </div>
                 <div class="col-6">
 
@@ -235,13 +235,13 @@
       <td>{{ $item->stok }}</td>
       <td>{{ $item->label_harga }}</td>
   <td class="text-end">
-      <button type="button" class="btn btn-sm btn-info" wire:click="detail({{ $item->id }})">
+      <button type="button" class="btn   btn-info" wire:click="detail({{ $item->id }})">
         <i class="bi bi-eye"></i> Detail
       </button>
-      <button type="button" class="btn btn-sm btn-warning" wire:click="edit({{ $item->id }})">
+      <button type="button" class="btn   btn-warning" wire:click="edit({{ $item->id }})">
         <i class="bi bi-pencil"></i> Edit
       </button>
-      <button type="button" class="btn btn-sm btn-danger" wire:click="delete({{ $item->id }})">
+      <button type="button" class="btn   btn-danger" wire:click="delete({{ $item->id }})">
         <i class="bi bi-trash"></i> Hapus
       </button>
   </td>

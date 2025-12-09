@@ -14,13 +14,13 @@ class BibitFactory extends Factory
      *
      * @return array<string, mixed>
      */
-public function definition(): array
-{
-    return [
-        'nama_bibit' => fake()->word(),
-        'deskripsi' => fake()->sentence(10),
-        'stok' => fake()->numberBetween(10, 200),
-        'harga' => fake()->numberBetween(20000, 100000),
-    ];
-}
+    public function definition(): array
+    {
+        return [
+            'nama_bibit' => fake()->word(),
+            'deskripsi' => fake()->sentence(10),
+            'stok' => fake()->numberBetween(10, 200),
+            'harga' => fake()->numberBetween(20000, 100000),
+        ];
+    }
 }

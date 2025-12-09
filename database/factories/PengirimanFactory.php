@@ -15,14 +15,14 @@ class PengirimanFactory extends Factory
      *
      * @return array<string, mixed>
      */
-public function definition(): array
-{
-    return [
-        'pesanan_id' => Pesanan::factory(),
-        'alamat_pengiriman' => fake()->address(),
-        'status_pengiriman' => 'menunggu',
-        'tanggal_kirim' => null,
-        'tanggal_terima' => null,
-    ];
-}
+    public function definition(): array
+    {
+        return [
+            'pesanan_id' => Pesanan::factory(),
+            'alamat_pengiriman' => fake()->address(),
+            'status_pengiriman' => 'menunggu',
+            'tanggal_kirim' => null,
+            'tanggal_terima' => null,
+        ];
+    }
 }

@@ -2,21 +2,20 @@
 
 namespace App\Livewire\Table;
 
-use App\Models\Bibit;
 use App\Livewire\Forms\BibitForm;
-use Livewire\Attributes\Computed;
-use Livewire\Component;
-use Livewire\WithPagination;
+use App\Models\Bibit;
 use App\Traits\WithModal;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class BibitTable extends Component
 {
-
-    use WithPagination;
     use WithModal;
     use WithNotify;
+    use WithPagination;
 
     public string $search = '';
 
@@ -25,11 +24,11 @@ class BibitTable extends Component
     #[Computed]
     public function bibitList()
     {
-    return Bibit::query()
-        ->when($this->search, function($query) {
-           $query->whereAny(['nama_bibit', 'deskripsi', 'stok', 'harga'], 'like', '%' . $this->search . '%');
-        })
-        ->paginate(10);
+        return Bibit::query()
+            ->when($this->search, function ($query) {
+                $query->whereAny(['nama_bibit', 'deskripsi', 'stok', 'harga'], 'like', '%'.$this->search.'%');
+            })
+            ->paginate(10);
     }
 
     public function add()
@@ -49,21 +48,24 @@ class BibitTable extends Component
 
     }
 
-    public function detail($id) {
+    public function detail($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-detail');
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $this->form->fill($id);
         $this->openModal('modal-edit');
 
     }
 
-    public function update() {
+    public function update()
+    {
         $this->form->update();
 
         $this->notifySuccess('Bibit berhasil diperbarui!');

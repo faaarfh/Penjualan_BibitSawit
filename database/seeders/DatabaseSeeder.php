@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'role' => Role::ADMIN,
-            'password' => 'password123'
+            'password' => 'password123',
         ]);
 
         User::factory()->create([
             'name' => 'Pembeli',
             'email' => 'pembeli@gmail.com',
             'role' => Role::PEMBELI,
-            'password' => 'password123'
+            'password' => 'password123',
         ]);
 
         // $this->call([
@@ -39,13 +39,13 @@ class DatabaseSeeder extends Seeder
         //     KasPembayaranSeeder::class,
         // ]);
 
-  // === BUAT PEMBELI ===
-        User::factory(3)->create([
-            'role' =>Role::PEMBELI
-        ]);
+        // === BUAT PEMBELI ===
+        // User::factory(3)->create([
+        //     'role' => Role::PEMBELI,
+        // ]);
 
         // === BUAT DATA BIBIT ===
-        Bibit::factory(5)->create();
+        Bibit::factory(2)->create();
 
         // === BUAT PESANAN + DETAIL + PENGIRIMAN ===
         Pesanan::factory(5)
@@ -53,15 +53,15 @@ class DatabaseSeeder extends Seeder
             ->each(function ($pesanan) {
 
                 // Buat 1–5 detail item
-                $details = PesananDetail::factory(rand(1,5))
+                $details = PesananDetail::factory(1)
                     ->create([
                         'pesanan_id' => $pesanan->id,
-                        'harga_satuan' => function() {
+                        'harga_satuan' => function () {
                             return rand(20000, 100000);
                         },
                         'subtotal' => function (array $attr) {
                             return $attr['jumlah'] * $attr['harga_satuan'];
-                        }
+                        },
                     ]);
 
                 // Hitung total harga
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
 
                 // Buat pengiriman untuk setiap pesanan
                 Pengiriman::factory()->create([
-                    'pesanan_id' => $pesanan->id
+                    'pesanan_id' => $pesanan->id,
                 ]);
             });
 

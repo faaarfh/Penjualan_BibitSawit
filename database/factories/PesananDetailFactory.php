@@ -16,14 +16,14 @@ class PesananDetailFactory extends Factory
      *
      * @return array<string, mixed>
      */
-public function definition(): array
-{
-    return [
-        'pesanan_id' => Pesanan::factory(),
-        'bibit_id' => Bibit::factory(),
-        'jumlah' => fake()->numberBetween(1, 10),
-        'harga_satuan' => fake()->numberBetween(20000, 100000),
-        'subtotal' => fake()->numberBetween(30000, 200000),
-    ];
-}
+    public function definition(): array
+    {
+        return [
+            'pesanan_id' => Pesanan::factory(),
+            'bibit_id' => Bibit::factory(),
+            'jumlah' => fake()->numberBetween(1, 10),
+            'harga_satuan' => fake()->numberBetween(20000, 100000),
+            'subtotal' => fake()->numberBetween(30000, 200000),
+        ];
+    }
 }

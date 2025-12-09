@@ -18,8 +18,8 @@ class Bibit extends Model
         return $this->hasMany(PesananDetail::class);
     }
 
-public function getLabelHargaAttribute()
-{
-    return 'Rp ' . number_format($this->harga, 0, ',', '.');
-}
+    public function getLabelHargaAttribute()
+    {
+        return 'Rp '.number_format($this->harga, 0, ',', '.');
+    }
 }

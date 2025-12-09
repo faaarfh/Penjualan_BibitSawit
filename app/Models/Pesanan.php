@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Enums\MetodePembayaran;
+use App\Enums\StatusPesanan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Pesanan extends Model
 {
@@ -11,9 +13,15 @@ class Pesanan extends Model
 
     protected $table = 'pesanan';
 
-    protected $fillable = [
-        'user_id', 'total_harga', 'status', 'bukti_pembayaran', 'tanggal_pesan', 'tanggal_bayar',
-    ];
+    protected $guarded = [];
+
+    public function casts(): array
+    {
+        return [
+            'metode_pembayaran' => MetodePembayaran::class,
+            'status' => StatusPesanan::class,
+        ];
+    }
 
     public function user()
     {
@@ -22,11 +30,22 @@ class Pesanan extends Model
 
     public function detail()
     {
-        return $this->hasMany(PesananDetail::class);
+        return $this->hasOne(PesananDetail::class);
     }
 
     public function pengiriman()
     {
         return $this->hasOne(Pengiriman::class);
+    }
+
+    /**
+     * Get the formatted price label.
+     *
+     * @return string
+     */
+    public function getLabelTotalHargaAttribute()
+    {
+        // Assuming $this->harga is the price property
+        return 'Rp. '.number_format($this->total_harga, 0, ',', '.');
     }
 }

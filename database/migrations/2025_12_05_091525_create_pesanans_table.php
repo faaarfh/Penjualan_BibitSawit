@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\MetodePembayaran;
 use App\Enums\StatusPesanan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,9 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->bigInteger('total_harga')->default(0);
             $table->enum('status', StatusPesanan::values());
-            $table->string('bukti_pembayaran')->nullable();
-            $table->timestamp('tanggal_pesan')->useCurrent();
-            $table->timestamp('tanggal_bayar')->nullable();
+            $table->enum('metode_pembayaran', MetodePembayaran::values())->default(MetodePembayaran::COD);
+            $table->date('tanggal_pesan')->useCurrent();
+            $table->date('tanggal_bayar')->nullable();
             $table->timestamps();
         });
     }

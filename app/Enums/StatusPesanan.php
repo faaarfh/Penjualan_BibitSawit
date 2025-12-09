@@ -4,13 +4,9 @@ namespace App\Enums;
 
 enum StatusPesanan: string
 {
-    case PENDING = 'Pending';
     case MENUNGGU_KONFIRMASI = 'Menunggu Konfirmasi';
-    case DIBAYAR = 'Dibayar';
-    case DIPROSES = 'Diproses';
-    case DIKIRIM = 'Dikirim';
-    case SELESAI = 'Selesai';
-    case DIBATALKAN = 'Dibatalkan';
+    case DITERIMA = 'Diterima';
+    case DITOLAK = 'Ditolak';
 
     public function getLabel(): string
     {
@@ -20,13 +16,9 @@ enum StatusPesanan: string
     public function getColor(): string
     {
         return match ($this) {
-            self::PENDING              => 'secondary',
             self::MENUNGGU_KONFIRMASI => 'warning',
-            self::DIBAYAR             => 'info',
-            self::DIPROSES            => 'primary',
-            self::DIKIRIM             => 'purple',
-            self::SELESAI             => 'success',
-            self::DIBATALKAN          => 'danger',
+            self::DITOLAK => 'danger',
+            self::DITERIMA => 'success',
         };
     }
 
@@ -41,21 +33,6 @@ enum StatusPesanan: string
         );
     }
 
-    /**
-     * Status yang bisa dipilih oleh pembeli (jika ada).
-     * Biasanya pembeli hanya bisa membatalkan pesanan saat Pending.
-     */
-    public static function buyerOptions(): array
-    {
-        return [
-            self::PENDING->value,
-            self::DIBATALKAN->value,
-        ];
-    }
-
-    /**
-     * Status yang bisa dipilih admin.
-     */
     public static function adminOptions(): array
     {
         return self::values();
@@ -67,11 +44,8 @@ enum StatusPesanan: string
     public static function active(): array
     {
         return [
-            self::PENDING->value,
             self::MENUNGGU_KONFIRMASI->value,
-            self::DIBAYAR->value,
-            self::DIPROSES->value,
-            self::DIKIRIM->value,
+            self::DITERIMA->value,
         ];
     }
 }

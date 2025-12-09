@@ -18,8 +18,8 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Total Pemasukan Bulan Ini</h6>
-                        <h6 class="font-extrabold mb-0">{{ $totalPemasukan ?? '' }}</h6>
+                        <h6 class="text-muted font-semibold">Total Transaksi Bulanan</h6>
+                        <h6 class="font-extrabold mb-0">{{ $totalTransaksiBulanan ?? '' }} Transaksi</h6>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@
                         </div>
                     </div>
                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                        <h6 class="text-muted font-semibold">Total Pengeluaran Bulan Ini</h6>
-                        <h6 class="font-extrabold mb-0">{{ $totalPengeluaran ?? '' }}</h6>
+                        <h6 class="text-muted font-semibold">Total Pendapatan Bulanan</h6>
+                        <h6 class="font-extrabold mb-0">Rp {{ number_format($totalPendapatanBulanan,0,',','.') }}</h6>
                     </div>
                 </div>
             </div>

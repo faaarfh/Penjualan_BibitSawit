@@ -13,7 +13,7 @@
                         alt="" class="user-image rounded-circle" width="120">
 
                     <div class="mt-2">
-                        <label for="profile-photo" class="btn btn-outline-primary btn-sm" style="cursor: pointer;">
+                        <label for="profile-photo" class="btn btn-outline-primary  " style="cursor: pointer;">
                             <i class="bi bi-camera"></i> Ganti Foto
                         </label>
                         <input wire:model="form.photo" type="file" id="profile-photo" class="d-none"
