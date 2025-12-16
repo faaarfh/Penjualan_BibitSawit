@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pesanan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/landing', \App\Livewire\Landing::class)->name('landing');
@@ -21,3 +22,7 @@ Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard')->mid
 Route::get('/register', \App\Livewire\Register::class)->name('register');
 Route::get('/login', \App\Livewire\Login::class)->name('login');
 Route::get('/logout', App\Http\Controllers\LogoutController::class)->name('logout');
+
+Route::get('/pesanan/{pesanan}/bukti', function (Pesanan $pesanan) {
+    return view('pesanan.bukti', compact('pesanan'));
+})->name('pesanan.bukti');

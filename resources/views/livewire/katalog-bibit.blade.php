@@ -9,9 +9,9 @@
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card shadow-sm" style="border-radius: 15px; overflow: hidden;">
 
-                    <!-- <img src="https://via.placeholder.com/400x250?text=Bibit" -->
-                    <!--      class="card-img-top" -->
-                    <!--      style="height: 180px; object-fit: cover;"> -->
+                    <img src="{{ $item->gambar }}"
+                         class="card-img-top"
+                         style="height: 180px; object-fit: cover;">
 
                     <div class="card-body">
                         <h5 class="card-title fw-bold">{{ $item->nama_bibit }}</h5>
@@ -91,7 +91,7 @@
             <div class="modal-footer">
                 <button class="btn btn-primary"
                         wire:click="masukkanKeranjang">
-                    Masukkan Keranjang
+                    Pesan
                 </button>
 
                 <button class="btn btn-secondary" data-bs-dismiss="modal">

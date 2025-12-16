@@ -24,23 +24,36 @@ class PesananTable extends Component
 
     public PesananForm $form;
 
+    public ?Pesanan $selectedPesanan;
+
+    public ?string $keterangan;
+
     public function updateStatus($id, $status)
     {
-        $pesanan = Pesanan::query()->with('detail', 'detail.bibit')->findOrFail($id);
-        $pesanan->status = $status;
-        $pesanan->save();
+        $this->selectedPesanan = Pesanan::query()->with('detail', 'detail.bibit')->findOrFail($id);
+        $this->selectedPesanan->status = $status;
+        $this->selectedPesanan->save();
 
         // Jika status pesanan diterima, kurangi stok bibit
         if ($status === StatusPesanan::DITERIMA->value) {
-            $bibit = Bibit::query()->find($pesanan->detail->bibit_id);
+            $bibit = Bibit::query()->find($this->selectedPesanan->detail->bibit_id);
 
             if ($bibit) {
-                $bibit->stok -= $pesanan->detail->jumlah;
+                $bibit->stok -= $this->selectedPesanan->detail->jumlah;
                 $bibit->save();
             }
+        } else if($status === StatusPesanan::DITOLAK->value) {
+            $this->openModal('modal-keterangan-penolakan');
         }
 
         $this->notifySuccess('Status pesanan berhasil diperbarui!');
+    }
+
+    public function submitKeteranganPenolakan() {
+
+        $this->selectedPesanan->keterangan = $this->keterangan;
+        $this->selectedPesanan->save();
+        $this->notifySuccess('Berhasil menyimpan keterangan penolakan');
     }
 
     #[Computed]

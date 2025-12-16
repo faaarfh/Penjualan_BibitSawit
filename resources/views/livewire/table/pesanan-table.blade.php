@@ -8,6 +8,53 @@ $role = auth()->user()->role;
     <h1>Pesanan</h1>
 
 
+<div class="modal fade" id="modal-keterangan-penolakan" tabindex="-1" wire:ignore.self>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Tolak Pesanan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form wire:submit.prevent="submitKeteranganPenolakan">
+
+                    <div class="mb-3">
+                        <label for="alasan_penolakan" class="form-label fw-bold">
+                            Keterangan / Alasan Penolakan
+                        </label>
+                        <textarea
+                            wire:model="keterangan"
+                            id="alasan_penolakan"
+                            class="form-control"
+                            rows="4"
+                            placeholder="Masukkan alasan penolakan pesanan..."
+                            required
+                        ></textarea>
+
+                        @error('Keterangan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Perhatian:</strong>
+                        Pesanan yang ditolak tidak dapat diproses kembali.
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-danger">
+                            Simpan Keterangan
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Detail Form -->
 <div class="modal fade" id="modal-detail" tabindex="-1" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -61,13 +108,15 @@ $role = auth()->user()->role;
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="tanggal_bayar" class="fw-bold">Tanggal Bayar</label>
-                        <input wire:model="form.tanggal_bayar" type="date" class="form-control" id="tanggal_bayar">
-                        @error('form.tanggal_bayar')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+
+@if (!empty($form->pesanan->keterangan))
+    <div class="form-group mb-3">
+        <label class="fw-bold text-danger">Keterangan Penolakan</label>
+        <textarea class="form-control" rows="3" readonly>
+{{ $form->pesanan->keterangan }}
+        </textarea>
+    </div>
+@endif
                 </fieldset>
                 <!-- <div class="alert alert-info mt-3"> -->
                 <!--     <strong>Info:</strong> Pastikan data pesanan sudah benar sebelum melakukan pembayaran. -->
@@ -113,41 +162,66 @@ $role = auth()->user()->role;
       <th scope="col">Status</th>
       <th scope="col">Tanggal Pesan</th>
       <th scope="col">Metode Pembayaran</th>
+
+                        @if ($role === Role::ADMIN)
+      <th scope="col">Bukti Pembelian</th>
+
+                        @endif
       <th class="text-end">Aksi</th>
     </tr>
   </thead>
   <tbody>
-    @forelse ($this->pesananList as $item)
-    <tr>
-      <th scope="row">{{ $loop->index + $this->pesananList->firstItem() }}</th>
-                        @if ($role === Role::ADMIN)
-                        <td>{{ $item->user->name}}</td>
+@forelse ($this->pesananList as $item)
+<tr>
+    <th scope="row">{{ $loop->index + $this->pesananList->firstItem() }}</th>
 
-                        @endif
-      <td>{{ $item->label_total_harga }}</td>
+    @if ($role === Role::ADMIN)
+        <td>{{ $item->user->name }}</td>
+    @endif
 
-      <td>
+    <td>{{ $item->label_total_harga }}</td>
 
-<select class="form-control"
-        wire:change="updateStatus({{ $item->id }}, $event.target.value)" {{ $role === Role::PEMBELI ? 'disabled' : ''}}>
+    <td>
+        <select class="form-control"
+            wire:change="updateStatus({{ $item->id }}, $event.target.value)"
+            {{
+                $role === Role::PEMBELI ||
+                $item->status === StatusPesanan::DITOLAK
+                ? 'disabled'
+                : ''
+            }}
+        >
+            @foreach (StatusPesanan::adminOptions() as $option)
+                <option value="{{ $option }}"
+                    {{ $item->status->value === $option ? 'selected' : '' }}>
+                    {{ $option }}
+                </option>
+            @endforeach
+        </select>
+    </td>
 
-    @foreach (StatusPesanan::adminOptions() as $option)
-        <option value="{{ $option }}" {{ $item->status->value === $option ? 'selected' : '' }}>
-            {{ $option }}
-        </option>
-    @endforeach
+    <td>{{ $item->tanggal_pesan }}</td>
+    <td>{{ $item->metode_pembayaran }}</td>
 
-</select>
+    {{-- NOTA hanya jika status DITERIMA --}}
+    @if ($role === Role::ADMIN && $item->status === StatusPesanan::DITERIMA)
+        <td class="text-end">
+            <a href="{{ route('pesanan.bukti', $item->id) }}"
+               class="btn btn-danger">
+                <i class="bi bi-receipt"></i> Cetak
+            </a>
+        </td>
+    @else
+        @if($role === Role::ADMIN)
+            <td></td>
+        @endif
+    @endif
 
-      </td>
-
-      <td>{{ $item->tanggal_pesan }}</td>
-      <td>{{ $item->metode_pembayaran }}</td>
-  <td class="text-end">
-      <button type="button" class="btn  btn-info" wire:click="detail({{ $item->id }})">
-        <i class="bi bi-eye"></i> Detail
-      </button>
-  </td>
+    <td class="text-end">
+        <button type="button" class="btn btn-info" wire:click="detail({{ $item->id }})">
+            <i class="bi bi-eye"></i> Detail
+        </button>
+    </td>
 </tr>
 @empty
 <tr>

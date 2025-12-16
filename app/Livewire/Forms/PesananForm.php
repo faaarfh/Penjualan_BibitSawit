@@ -20,6 +20,8 @@ class PesananForm extends Form
 
     public ?string $tanggal_bayar;
 
+    public ?string $keterangan;
+
     public $metode_pembayaran; // Tambahkan properti metode pembayaran
 
     protected function rules(): array
@@ -31,6 +33,7 @@ class PesananForm extends Form
             'tanggal_pesan' => 'required',
             'tanggal_bayar' => 'required',
             'metode_pembayaran' => 'required', // Tambahkan validasi metode pembayaran
+            'keterangan' => 'nullable'
         ];
     }
 
@@ -77,5 +80,6 @@ class PesananForm extends Form
         $this->tanggal_pesan = $this->pesanan->tanggal_pesan;
         $this->tanggal_bayar = $this->pesanan->tanggal_bayar;
         $this->metode_pembayaran = $this->pesanan->metode_pembayaran ?? null; // Isi metode pembayaran jika ada
+        $this->keterangan = $this->pesanan->keterangan;
     }
 }

@@ -71,7 +71,7 @@ class KatalogBibit extends Component
         $pesanan->save();
 
         $this->closeModal('modalBeliBibit');
-        $this->notifySuccess('Berhasil menambahkan ke keranjang!');
+        $this->notifySuccess('Berhasil menambahkan ke pesanan!');
     }
 
     public function tambahQty()

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->enum('metode_pembayaran', MetodePembayaran::values())->default(MetodePembayaran::COD);
             $table->date('tanggal_pesan')->useCurrent();
             $table->date('tanggal_bayar')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

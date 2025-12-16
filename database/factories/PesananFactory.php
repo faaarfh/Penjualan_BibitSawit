@@ -26,6 +26,7 @@ class PesananFactory extends Factory
             'tanggal_pesan' => now(),
             'tanggal_bayar' => null,
             'metode_pembayaran' => fake()->randomElement(MetodePembayaran::values()),
+            'keterangan' => $this->faker->paragraph()
         ];
     }
 }
